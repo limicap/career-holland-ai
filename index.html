@@ -36,18 +36,13 @@
     .break-keep {
       word-break: keep-all;
     }
-    /* PDF 저장 전용 스타일 */
-    .pdf-export-mode {
-      background: white !important;
-      padding: 16px !important;
-    }
   </style>
 </head>
 <body class="text-slate-800 antialiased min-h-screen flex flex-col overflow-x-hidden w-full break-keep">
 
-  <!-- 상단 네비게이션 헤더 (모바일 가로 덜렁거림 완벽 차단) -->
+  <!-- 상단 네비게이션 헤더 -->
   <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm w-full">
-    <div class="max-w-5xl mx-auto px-3 h-14 flex items-center justify-between">
+    <div class="max-w-5xl mx-auto px-3.5 h-14 flex items-center justify-between">
       
       <!-- 로고 -->
       <div class="flex items-center space-x-2 cursor-pointer shrink-0" onclick="goToStep(0)">
@@ -57,7 +52,7 @@
         <span class="font-extrabold text-slate-900 text-sm md:text-base tracking-tight">직업흥미AI</span>
       </div>
       
-      <!-- 상단 4단계 네비게이션 (모바일 화면 폭 360px에서도 절대 넘치지 않게 최적화) -->
+      <!-- 상단 4단계 네비게이션 -->
       <nav class="flex items-center space-x-1 sm:space-x-1.5 text-xs font-semibold shrink-0">
         <button id="nav-step-1" onclick="goToStep(1)" class="px-1.5 py-1 rounded-md text-slate-600 hover:bg-slate-100 transition flex items-center gap-1">
           <span class="w-4 h-4 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center text-[10px] font-bold">1</span>
@@ -87,7 +82,7 @@
     </div>
   </header>
 
-  <!-- 메인 컨테이너 (가로 스크롤 방지) -->
+  <!-- 메인 컨테이너 -->
   <main class="flex-1 max-w-5xl w-full mx-auto px-3.5 py-4 md:py-6 overflow-x-hidden">
 
     <!-- ========================================== -->
@@ -114,7 +109,7 @@
         </div>
       </div>
 
-      <!-- 아이폰/스마트폰 홈화면 추가 안내 카드 (웹 배포 연계 안내 강화) -->
+      <!-- 아이폰/스마트폰 홈화면 추가 안내 카드 -->
       <div class="bg-blue-50 border border-blue-200 rounded-xl p-3.5 text-xs text-blue-900 mb-5 flex items-start gap-2.5">
         <i class="fa-solid fa-mobile-screen text-blue-600 text-base mt-0.5 shrink-0"></i>
         <div class="leading-relaxed">
@@ -207,16 +202,14 @@
         <!-- JS로 동적 렌더링 -->
       </div>
 
-      <!-- 하단 고정 바: 전체 현황 및 네비게이션 -->
+      <!-- 하단 고정 바 -->
       <div class="fixed bottom-0 left-0 right-0 bg-slate-900/95 backdrop-blur-md text-white border-t border-slate-800 p-2.5 z-40 shadow-2xl">
         <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
           
-          <!-- 6개 유형 배지 (현재 유형 확대 강조 + 클릭 시 바로 이동) -->
           <div class="flex items-center gap-1 justify-center w-full sm:w-auto" id="bottom-status-badges">
             <!-- 동적 렌더링 -->
           </div>
 
-          <!-- 하단 버튼: 이전 / 다음 / 결과확인(C유형에서만 활성화) -->
           <div class="flex items-center justify-end gap-2 w-full sm:w-auto" id="bottom-action-buttons">
             <!-- 동적 렌더링 -->
           </div>
@@ -237,7 +230,7 @@
             홀랜드 육각형 모델로 분석된 나의 대표 유형과 AI 수요 지표입니다.
           </p>
         </div>
-        <!-- 📄 직업흥미 검사결과 PDF 저장 버튼 (2단계로 이동 배치!) -->
+        <!-- 📄 직업흥미 검사결과 PDF 저장 버튼 -->
         <button onclick="downloadHollandPDF()" id="btn-download-holland-pdf" class="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-xs shadow-md transition flex items-center justify-center gap-2 self-start sm:self-auto shrink-0">
           <i class="fa-solid fa-file-pdf text-red-400 text-sm"></i>
           <span>검사 결과 PDF 저장</span>
@@ -268,28 +261,34 @@
             </div>
           </div>
 
-          <!-- 오른쪽: 나의 대표 흥미코드 요약 -->
+          <!-- 오른쪽: 나의 대표 흥미코드 요약 (피드백 3번 반영: 여백 확보 및 가독성 대폭 개선) -->
           <div class="lg:col-span-6 flex flex-col gap-3">
-            <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-4.5 rounded-2xl shadow-md">
-              <span class="text-[10px] text-orange-400 font-semibold uppercase tracking-wider">나의 대표 흥미코드</span>
-              <div class="flex items-baseline gap-2 my-1">
-                <h3 id="top-holland-code" class="text-2xl md:text-3xl font-extrabold text-white">RS</h3>
-                <span id="top-holland-name" class="text-xs md:text-sm text-slate-300 font-medium">현실형 · 사회형</span>
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white p-6 sm:p-7 rounded-2xl shadow-lg border border-slate-700/50 relative overflow-hidden">
+              <div class="relative z-10 space-y-3">
+                <span class="inline-block px-3 py-1 bg-orange-500/20 text-orange-400 border border-orange-500/30 rounded-full text-[11px] font-bold tracking-wide">
+                  나의 대표 흥미코드
+                </span>
+                <div class="flex items-baseline gap-2.5 my-2">
+                  <h3 id="top-holland-code" class="text-3xl sm:text-4xl font-black text-white tracking-tight">RS</h3>
+                  <span id="top-holland-name" class="text-sm sm:text-base text-slate-300 font-semibold">현실형 · 사회형</span>
+                </div>
+                <div class="pt-2 border-t border-slate-700/60">
+                  <p id="top-holland-desc" class="text-xs sm:text-sm text-slate-200 leading-relaxed sm:leading-loose px-0.5">
+                    <!-- 해설 동적 렌더링 -->
+                  </p>
+                </div>
               </div>
-              <p id="top-holland-desc" class="text-[11px] md:text-xs text-slate-300 leading-relaxed">
-                <!-- 해설 동적 렌더링 -->
-              </p>
             </div>
 
             <!-- AI 수요 및 인간필요도 카드 -->
-            <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex-1 flex flex-col justify-between">
+            <div class="bg-white p-4.5 rounded-2xl border border-slate-200 shadow-sm flex-1 flex flex-col justify-between">
               <h4 class="font-bold text-slate-800 text-xs mb-2 flex items-center gap-1.5">
                 <i class="fa-solid fa-chart-line text-blue-500"></i> AI 시대 수요 및 인간 필요도 (1순위 유형 기준)
               </h4>
               <div id="ai-demand-stats" class="space-y-2.5">
                 <!-- 동적 생성 -->
               </div>
-              <div id="ai-demand-comment" class="mt-2.5 p-2 bg-slate-50 rounded-xl text-[11px] text-slate-600 border border-slate-100 leading-relaxed">
+              <div id="ai-demand-comment" class="mt-2.5 p-2.5 bg-slate-50 rounded-xl text-[11px] text-slate-600 border border-slate-100 leading-relaxed">
                 <!-- AI 코멘트 -->
               </div>
             </div>
@@ -453,7 +452,7 @@
               </div>
             </div>
 
-            <!-- 5. 유망 기간 / 추천 직업 수 / 우선 검토 개수 (교안 맞춤 동적 입력) -->
+            <!-- 5. 유망 기간 / 추천 직업 수 / 우선 검토 개수 -->
             <div class="grid grid-cols-3 gap-2 pt-1 border-t border-slate-100">
               <div>
                 <label class="block text-[10px] font-bold text-slate-700 mb-0.5">유망 기간</label>
@@ -490,7 +489,7 @@
           </div>
         </div>
 
-        <!-- 오른쪽: 완성된 프롬프트 카드 & 모바일 원클릭 AI 열기 -->
+        <!-- 오른쪽: 완성된 프롬프트 카드 & 모바일 새 창 AI 열기 (피드백 1번 반영) -->
         <div class="lg:col-span-7 flex flex-col space-y-3">
           <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex-1 flex flex-col justify-between">
             <div>
@@ -507,7 +506,7 @@
               <textarea id="generated-prompt-text" rows="12" readonly class="w-full p-3 bg-slate-900 text-slate-100 font-mono text-xs rounded-xl focus:outline-none resize-none leading-relaxed border border-slate-800 shadow-inner select-all"></textarea>
             </div>
 
-            <!-- 모바일 최적화 복사 및 4대 AI 버튼 -->
+            <!-- 복사 및 4대 AI 새 탭 열기 버튼 그룹 -->
             <div class="mt-2.5 pt-2.5 border-t border-slate-100 space-y-2">
               <button onclick="copyPromptToClipboard()" class="w-full py-2.5 bg-orange-600 hover:bg-orange-500 text-white rounded-xl font-bold text-xs md:text-sm shadow-md transition flex items-center justify-center gap-2">
                 <i class="fa-regular fa-copy"></i>
@@ -515,54 +514,58 @@
               </button>
 
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
-                <a href="https://wrtn.ai" target="_blank" onclick="copyPromptToClipboard()" class="py-2 px-1.5 bg-[#00D084] hover:bg-[#00BA76] text-white rounded-xl font-bold text-[11px] sm:text-xs shadow-sm transition flex items-center justify-center gap-1">
+                <!-- 1. 뤼튼 -->
+                <button onclick="launchAI('https://wrtn.ai')" class="py-2.5 px-1.5 bg-[#00D084] hover:bg-[#00BA76] text-white rounded-xl font-bold text-[11px] sm:text-xs shadow-sm transition flex items-center justify-center gap-1">
                   <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
                   <span>뤼튼(wrtn)</span>
-                </a>
-                <a href="https://chatgpt.com" target="_blank" onclick="copyPromptToClipboard()" class="py-2 px-1.5 bg-[#10A37F] hover:bg-[#0E906F] text-white rounded-xl font-bold text-[11px] sm:text-xs shadow-sm transition flex items-center justify-center gap-1">
+                </button>
+                <!-- 2. ChatGPT (아이폰 새 탭 호환성 강화) -->
+                <button onclick="launchAI('https://chatgpt.com')" class="py-2.5 px-1.5 bg-[#10A37F] hover:bg-[#0E906F] text-white rounded-xl font-bold text-[11px] sm:text-xs shadow-sm transition flex items-center justify-center gap-1">
                   <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
                   <span>ChatGPT</span>
-                </a>
-                <a href="https://gemini.google.com" target="_blank" onclick="copyPromptToClipboard()" class="py-2 px-1.5 bg-[#1A73E8] hover:bg-[#1557B0] text-white rounded-xl font-bold text-[11px] sm:text-xs shadow-sm transition flex items-center justify-center gap-1">
+                </button>
+                <!-- 3. Gemini -->
+                <button onclick="launchAI('https://gemini.google.com')" class="py-2.5 px-1.5 bg-[#1A73E8] hover:bg-[#1557B0] text-white rounded-xl font-bold text-[11px] sm:text-xs shadow-sm transition flex items-center justify-center gap-1">
                   <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
                   <span>Gemini</span>
-                </a>
-                <a href="https://claude.ai" target="_blank" onclick="copyPromptToClipboard()" class="py-2 px-1.5 bg-[#D97706] hover:bg-[#B45309] text-white rounded-xl font-bold text-[11px] sm:text-xs shadow-sm transition flex items-center justify-center gap-1">
+                </button>
+                <!-- 4. Claude -->
+                <button onclick="launchAI('https://claude.ai')" class="py-2.5 px-1.5 bg-[#D97706] hover:bg-[#B45309] text-white rounded-xl font-bold text-[11px] sm:text-xs shadow-sm transition flex items-center justify-center gap-1">
                   <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
                   <span>Claude</span>
-                </a>
+                </button>
               </div>
 
               <p class="text-[10px] text-slate-400 text-center">
-                ※ 버튼을 누르면 프롬프트가 복사되며 AI 사이트로 이동합니다. 대화창에 <strong>붙여넣기(Ctrl+V)</strong>하세요.
+                ※ 버튼 터치 시 <strong>프롬프트가 자동 복사되며 새 창으로 AI가 열립니다</strong>. 대화창에 바로 <strong>붙여넣기</strong>하세요.
               </p>
             </div>
           </div>
 
-          <!-- 교안 p.39 "이어서 물어보기" 추천 질문 가이드 -->
+          <!-- 교안 p.39 "이어서 물어보기" 추천 질문 가이드 (피드백 2번 반영: 추천 개수 동적 연동!) -->
           <div class="bg-amber-50/70 border border-amber-200/80 rounded-2xl p-3">
             <h4 class="font-bold text-amber-900 text-xs mb-1.5 flex items-center gap-1.5">
               <i class="fa-solid fa-comments text-amber-600"></i> 교안 추천 : AI에게 이어서 물어보기 (클릭하면 복사)
             </h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-1">
-              <button onclick="copyQuickQuery('30개 직업 추천 결과를 한눈에 보기 편하게 표로 정리해 주세요.')" class="px-2 py-1.5 bg-white text-slate-700 text-[10px] sm:text-[11px] rounded-lg border border-amber-200 hover:bg-amber-100 transition text-left truncate">
-                📋 "표로 정리해 주세요"
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+              <button onclick="copyDynamicQuery('table')" class="px-2.5 py-1.5 bg-white text-slate-700 text-[10px] sm:text-[11px] rounded-lg border border-amber-200 hover:bg-amber-100 transition text-left truncate">
+                📋 <span id="label-query-table">추천 직업 표로 정리</span>
               </button>
-              <button onclick="copyQuickQuery('우선 검토할 직업 중 1순위 직업의 구체적인 업무 내용, 필요 역량, 취득해야 할 자격증을 더 자세히 알려주세요.')" class="px-2 py-1.5 bg-white text-slate-700 text-[10px] sm:text-[11px] rounded-lg border border-amber-200 hover:bg-amber-100 transition text-left truncate">
-                🔍 "○○ 직업을 더 자세히"
+              <button onclick="copyDynamicQuery('detail')" class="px-2.5 py-1.5 bg-white text-slate-700 text-[10px] sm:text-[11px] rounded-lg border border-amber-200 hover:bg-amber-100 transition text-left truncate">
+                🔍 <span>1순위 직업 상세 정보</span>
               </button>
-              <button onclick="copyQuickQuery('1순위 직업으로 진입하기 위한 1년 준비 계획을 월별(1~12월)로 구체적으로 작성해 주세요.')" class="px-2 py-1.5 bg-white text-slate-700 text-[10px] sm:text-[11px] rounded-lg border border-amber-200 hover:bg-amber-100 transition text-left truncate">
-                📅 "1년 준비 계획을 월별로"
+              <button onclick="copyDynamicQuery('monthly')" class="px-2.5 py-1.5 bg-white text-slate-700 text-[10px] sm:text-[11px] rounded-lg border border-amber-200 hover:bg-amber-100 transition text-left truncate">
+                📅 <span>1년 준비 계획을 월별로</span>
               </button>
-              <button onclick="copyQuickQuery('이 직업 준비에 도움이 되는 국비지원 교육 과정이나 정부 지원 제도를 추천해 주세요.')" class="px-2 py-1.5 bg-white text-slate-700 text-[10px] sm:text-[11px] rounded-lg border border-amber-200 hover:bg-amber-100 transition text-left truncate">
-                🏛️ "국비지원/직업훈련 추천"
+              <button onclick="copyDynamicQuery('hrd')" class="px-2.5 py-1.5 bg-white text-slate-700 text-[10px] sm:text-[11px] rounded-lg border border-amber-200 hover:bg-amber-100 transition text-left truncate">
+                🏛️ <span>국비지원/직업훈련 추천</span>
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 공공 진로 포털 안내: 고용24 & 커리어넷 2개만 깔끔하게 남김 (피드백 2번 반영) -->
+      <!-- 공공 진로 포털 안내: 고용24 & 커리어넷 2개만 깔끔하게 남김 -->
       <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm mb-5">
         <h4 class="font-bold text-slate-800 text-xs md:text-sm mb-1.5 flex items-center gap-1.5">
           <i class="fa-solid fa-building-columns text-blue-600"></i> 공공 직업·진로 정보 포털 바로가기
@@ -571,14 +574,14 @@
           AI가 추천한 직업의 공식 채용 공고, 국가공인 자격증 및 학과 정보는 정부 공공 포털에서 직접 조회하실 수 있습니다.
         </p>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-          <a href="https://www.work24.go.kr" target="_blank" class="p-3 bg-blue-50/60 hover:bg-blue-100/70 rounded-xl border border-blue-200 flex items-center justify-between transition">
+          <a href="https://www.work24.go.kr" target="_blank" rel="noopener noreferrer" class="p-3 bg-blue-50/60 hover:bg-blue-100/70 rounded-xl border border-blue-200 flex items-center justify-between transition">
             <div>
               <span class="font-extrabold text-xs text-blue-800 block">고용24 (통합 고용포털)</span>
               <span class="text-[10px] text-blue-600">워크넷 + HRD-Net 직업훈련 통합 공식 사이트</span>
             </div>
             <i class="fa-solid fa-arrow-up-right-from-square text-blue-600 text-xs"></i>
           </a>
-          <a href="https://www.career.go.kr" target="_blank" class="p-3 bg-emerald-50/60 hover:bg-emerald-100/70 rounded-xl border border-emerald-200 flex items-center justify-between transition">
+          <a href="https://www.career.go.kr" target="_blank" rel="noopener noreferrer" class="p-3 bg-emerald-50/60 hover:bg-emerald-100/70 rounded-xl border border-emerald-200 flex items-center justify-between transition">
             <div>
               <span class="font-extrabold text-xs text-emerald-800 block">커리어넷 (진로정보망)</span>
               <span class="text-[10px] text-emerald-600">교육부 공식 직업정보, 학과정보 및 진로상담</span>
@@ -588,7 +591,7 @@
         </div>
       </div>
 
-      <!-- 하단 네비게이션 (PDF 다운로드 제거하고 신직업 돌아가기 및 처음으로 버튼 배치) -->
+      <!-- 하단 네비게이션 -->
       <div class="flex justify-between items-center bg-white p-3.5 rounded-2xl border border-slate-200 shadow-sm">
         <button onclick="goToStep(3)" class="px-3.5 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900">
           <i class="fa-solid fa-arrow-left mr-1"></i> 신직업 다시 고르기
@@ -605,7 +608,7 @@
   <footer class="bg-white border-t border-slate-200 py-5 mt-6 text-center text-xs text-slate-400">
     <div class="max-w-5xl mx-auto px-4">
       <p class="font-medium text-slate-600">한국보건복지인재원 「AI 시대의 사회복무와 진로탐색」 교안 기반 시스템</p>
-      <p class="text-[10px] text-slate-400 mt-0.5">본 프로그램은 브라우저 내부에서만 안전하게 동작하며 개인정보를 수집하거나 전송하지 않습니다.</p>
+      <p class="text-[10px] text-slate-400 mt-0.5">작성 중인 데이터는 브라우저에 안전하게 자동 저장되며 외부로 전송되지 않습니다.</p>
     </div>
   </footer>
 
@@ -939,9 +942,11 @@
     ];
 
     // -------------------------------------------------------------
-    // 3. 상태 관리
+    // 3. 상태 관리 (localStorage 자동 저장/복원으로 데이터 유실 방지!)
     // -------------------------------------------------------------
-    const state = {
+    const STORAGE_KEY = 'career_holland_app_data_v1';
+
+    const defaultState = {
       currentStep: 0,
       currentTypeTab: 'R',
       checks: {
@@ -952,16 +957,56 @@
         E: { iam: Array(6).fill(false), ican: Array(6).fill(false), ilike: Array(6).fill(false) },
         C: { iam: Array(6).fill(false), ican: Array(6).fill(false), ilike: Array(6).fill(false) }
       },
-      selectedJobIds: new Set(),
+      selectedJobIds: [],
       currentJobFilter: 'MATCH',
-      jobSearchTerm: ''
+      jobSearchTerm: '',
+      inputs: {
+        major: '',
+        mbti: 'ESTJ',
+        jobValue: '높은 연봉',
+        years: 10,
+        jobCount: 30,
+        priorityCount: 5
+      }
     };
+
+    let state = JSON.parse(JSON.stringify(defaultState));
+    state.selectedJobIds = new Set(state.selectedJobIds);
+
+    // 로컬 스토리지 저장
+    function saveState() {
+      try {
+        const toSave = {
+          ...state,
+          selectedJobIds: Array.from(state.selectedJobIds)
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave));
+      } catch (e) {
+        console.error('Storage save failed', e);
+      }
+    }
+
+    // 로컬 스토리지 불러오기
+    function loadState() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          state.checks = parsed.checks || defaultState.checks;
+          state.selectedJobIds = new Set(parsed.selectedJobIds || []);
+          state.inputs = parsed.inputs || defaultState.inputs;
+        }
+      } catch (e) {
+        console.error('Storage load failed', e);
+      }
+    }
 
     // -------------------------------------------------------------
     // 4. 화면 전환
     // -------------------------------------------------------------
     function goToStep(stepIndex) {
       state.currentStep = stepIndex;
+      saveState();
       
       document.querySelectorAll('.screen-view').forEach(s => s.classList.add('hidden'));
       if (stepIndex === 0) {
@@ -1111,6 +1156,7 @@
 
     function toggleCheck(code, category, index) {
       state.checks[code][category][index] = !state.checks[code][category][index];
+      saveState();
       renderCurrentTypeContent();
     }
 
@@ -1203,6 +1249,7 @@
         state.checks[code].ican.fill(false);
         state.checks[code].ilike.fill(false);
       });
+      saveState();
       renderCurrentTypeContent();
       showToast('검사 체크가 초기화되었습니다.');
     }
@@ -1382,7 +1429,6 @@
       }
     }
 
-    // 2단계 결과분석 화면 전용 PDF 직접 다운로드 (피드백 3번 반영)
     function downloadHollandPDF() {
       const btn = document.getElementById('btn-download-holland-pdf');
       const originalText = btn.innerHTML;
@@ -1413,7 +1459,7 @@
     }
 
     // -------------------------------------------------------------
-    // 7. 3단계: AI 신직업 탐색 (대표 2개 유형만 상단 노출)
+    // 7. 3단계: AI 신직업 탐색
     // -------------------------------------------------------------
     function renderJobsScreen() {
       const { first, second } = getTopTypes();
@@ -1507,6 +1553,7 @@
       } else {
         state.selectedJobIds.add(jobId);
       }
+      saveState();
       applyJobFilters();
       updateSelectedJobCount();
     }
@@ -1519,6 +1566,7 @@
 
     function clearSelectedJobs() {
       state.selectedJobIds.clear();
+      saveState();
       applyJobFilters();
       updateSelectedJobCount();
       showToast('찜한 직업 목록을 비웠습니다.');
@@ -1530,6 +1578,17 @@
     function initPromptScreen() {
       const { codeStr } = getTopTypes();
       document.getElementById('input-holland').value = codeStr;
+      
+      // 저장된 인풋 복원
+      if (state.inputs) {
+        if (state.inputs.major !== undefined) document.getElementById('input-major').value = state.inputs.major;
+        if (state.inputs.mbti) document.getElementById('input-mbti').value = state.inputs.mbti;
+        if (state.inputs.jobValue) document.getElementById('input-value').value = state.inputs.jobValue;
+        if (state.inputs.years) document.getElementById('input-years').value = state.inputs.years;
+        if (state.inputs.jobCount) document.getElementById('input-job-count').value = state.inputs.jobCount;
+        if (state.inputs.priorityCount) document.getElementById('input-priority-count').value = state.inputs.priorityCount;
+      }
+
       renderPromptSelectedJobsBox();
       buildPrompt();
     }
@@ -1551,6 +1610,7 @@
 
     function removeJobFromPrompt(jobId) {
       state.selectedJobIds.delete(jobId);
+      saveState();
       renderPromptSelectedJobsBox();
       updateSelectedJobCount();
       buildPrompt();
@@ -1575,6 +1635,14 @@
       const years = parseInt(document.getElementById('input-years').value) || 10;
       const jobCount = parseInt(document.getElementById('input-job-count').value) || 30;
       const priorityCount = parseInt(document.getElementById('input-priority-count').value) || 5;
+
+      // 상태 저장
+      state.inputs = { major, mbti, jobValue, years, jobCount, priorityCount };
+      saveState();
+
+      // 꼬리질문 버튼 라벨도 동기화 (피드백 2번 반영)
+      const labelTable = document.getElementById('label-query-table');
+      if (labelTable) labelTable.innerText = `${jobCount}개 직업 표로 정리`;
 
       const currentYear = 2026;
       const endYear = currentYear + years;
@@ -1604,7 +1672,7 @@
     }
 
     // -------------------------------------------------------------
-    // 9. 프롬프트 복사
+    // 9. 프롬프트 복사 및 AI 새 창 다이렉트 오픈 (피드백 1번 해결)
     // -------------------------------------------------------------
     function copyPromptToClipboard() {
       const promptText = document.getElementById('generated-prompt-text').value;
@@ -1623,14 +1691,49 @@
       const textarea = document.getElementById('generated-prompt-text');
       textarea.select();
       document.execCommand('copy');
-      showToast('프롬프트가 클립보드에 복사되었습니다!');
+      showToast('프롬프트가 복사되었습니다!');
     }
 
-    function copyQuickQuery(queryText) {
+    // 아이폰 Safari에서 현재 탭을 덮어쓰지 않고 확실하게 새 탭으로 띄우기
+    function launchAI(url) {
+      // 1. 프롬프트 복사
+      copyPromptToClipboard();
+
+      // 2. 새 탭 열기 (window.open에 noopener 옵션 부여로 아이폰 사파리 팝업 차단 및 리다이렉트 방지)
+      const newWin = window.open(url, '_blank', 'noopener,noreferrer');
+      if (!newWin || newWin.closed || typeof newWin.closed === 'undefined') {
+        // 혹시 팝업이 차단된 경우 a 태그 가상 클릭으로 fallback
+        const link = document.createElement('a');
+        link.href = url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    }
+
+    // 꼬리질문 동적 복사 (피드백 2번 반영)
+    function copyDynamicQuery(type) {
+      const jobCount = parseInt(document.getElementById('input-job-count').value) || 30;
+      let text = '';
+
+      if (type === 'table') {
+        text = `추천해 주신 ${jobCount}개 직업 목록을 한눈에 비교하기 편하도록 [직업명 / 구분(전공활용 또는 추가자격) / 진입난이도 / 예상소득 / 향후전망] 항목을 포함한 깔끔한 표로 정리해 주세요.`;
+      } else if (type === 'detail') {
+        text = `우선 검토할 핵심 직업 중 1순위 직업에 대해 일상적인 구체적 업무 내용, 실무 필수 역량, 그리고 반드시 취득해야 할 국가 자격증을 더 상세히 알려주세요.`;
+      } else if (type === 'monthly') {
+        text = `사회복무 기간 및 소집해제 이후를 대비하여, 1순위 추천 직업 진입을 위한 1년 준비 계획을 1월부터 12월까지 월별 구체적 실행 목표(자격증, 학습, 포트폴리오 등)로 작성해 주세요.`;
+      } else if (type === 'hrd') {
+        text = `이 직업으로 취업하기 위해 고용24(HRD-Net)에서 검색하여 수강할 수 있는 추천 국비지원 직업훈련 과정이나 청년 취업지원 제도를 소개해 주세요.`;
+      }
+
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(queryText).then(() => {
-          showToast(`질문 복사: "${queryText.substring(0, 15)}..."`);
+        navigator.clipboard.writeText(text).then(() => {
+          showToast(`꼬리질문 복사 완료! AI 대화창에 붙여넣으세요.`);
         });
+      } else {
+        fallbackCopyText(text);
       }
     }
 
@@ -1650,7 +1753,9 @@
       }, 2300);
     }
 
+    // 초기 실행 시 로컬 스토리지 데이터 자동 로드
     window.addEventListener('DOMContentLoaded', () => {
+      loadState();
       goToStep(0);
     });
   </script>
