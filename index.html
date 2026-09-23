@@ -261,7 +261,7 @@
             </div>
           </div>
 
-          <!-- 오른쪽: 나의 대표 흥미코드 요약 (피드백 3번 반영: 여백 확보 및 가독성 대폭 개선) -->
+          <!-- 오른쪽: 나의 대표 흥미코드 요약 (여백 및 가독성 최적화) -->
           <div class="lg:col-span-6 flex flex-col gap-3">
             <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white p-6 sm:p-7 rounded-2xl shadow-lg border border-slate-700/50 relative overflow-hidden">
               <div class="relative z-10 space-y-3">
@@ -489,9 +489,9 @@
           </div>
         </div>
 
-        <!-- 오른쪽: 완성된 프롬프트 카드 & 모바일 새 창 AI 열기 (피드백 1번 반영) -->
+        <!-- 오른쪽: 완성된 프롬프트 카드 & 100% 확실한 복사 및 앱 실행 -->
         <div class="lg:col-span-7 flex flex-col space-y-3">
-          <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex-1 flex flex-col justify-between">
+          <div class="bg-white p-4.5 rounded-2xl border border-slate-200 shadow-sm flex-1 flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between border-b border-slate-100 pb-2 mb-2">
                 <h3 class="font-bold text-slate-800 text-xs md:text-sm flex items-center gap-1.5">
@@ -502,47 +502,50 @@
                 </span>
               </div>
 
-              <!-- 프롬프트 텍스트 에어리어 -->
               <textarea id="generated-prompt-text" rows="12" readonly class="w-full p-3 bg-slate-900 text-slate-100 font-mono text-xs rounded-xl focus:outline-none resize-none leading-relaxed border border-slate-800 shadow-inner select-all"></textarea>
             </div>
 
-            <!-- 복사 및 4대 AI 새 탭 열기 버튼 그룹 -->
-            <div class="mt-2.5 pt-2.5 border-t border-slate-100 space-y-2">
-              <button onclick="copyPromptToClipboard()" class="w-full py-2.5 bg-orange-600 hover:bg-orange-500 text-white rounded-xl font-bold text-xs md:text-sm shadow-md transition flex items-center justify-center gap-2">
-                <i class="fa-regular fa-copy"></i>
-                <span>프롬프트 복사하기</span>
+            <!-- 프롬프트 복사 & 확실한 스마트폰 앱/새창 실행 -->
+            <div class="mt-3 pt-3 border-t border-slate-100 space-y-2.5">
+              
+              <!-- 메인 원클릭 복사 버튼 (가장 추천) -->
+              <button onclick="copyPromptToClipboard()" class="w-full py-3.5 bg-orange-600 hover:bg-orange-500 text-white rounded-xl font-extrabold text-sm shadow-md transition flex items-center justify-center gap-2">
+                <i class="fa-regular fa-copy text-base"></i>
+                <span>프롬프트 복사하기 (클릭 후 AI 앱에 붙여넣기)</span>
               </button>
 
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
-                <!-- 1. 뤼튼 -->
-                <button onclick="launchAI('https://wrtn.ai')" class="py-2.5 px-1.5 bg-[#00D084] hover:bg-[#00BA76] text-white rounded-xl font-bold text-[11px] sm:text-xs shadow-sm transition flex items-center justify-center gap-1">
-                  <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+              <!-- 스마트폰 앱 직접 실행 / 새 탭 열기 버튼 -->
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                <!-- 1. ChatGPT (앱 딥링크 및 웹 새탭) -->
+                <button onclick="smartLaunchAI('chatgpt')" class="py-2.5 px-2 bg-[#10A37F] hover:bg-[#0E906F] text-white rounded-xl font-bold text-xs shadow-sm transition flex items-center justify-center gap-1.5">
+                  <i class="fa-solid fa-bolt text-amber-300 text-[10px]"></i>
+                  <span>ChatGPT 열기</span>
+                </button>
+                <!-- 2. 뤼튼 -->
+                <button onclick="smartLaunchAI('wrtn')" class="py-2.5 px-2 bg-[#00D084] hover:bg-[#00BA76] text-white rounded-xl font-bold text-xs shadow-sm transition flex items-center justify-center gap-1.5">
+                  <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                   <span>뤼튼(wrtn)</span>
                 </button>
-                <!-- 2. ChatGPT (아이폰 새 탭 호환성 강화) -->
-                <button onclick="launchAI('https://chatgpt.com')" class="py-2.5 px-1.5 bg-[#10A37F] hover:bg-[#0E906F] text-white rounded-xl font-bold text-[11px] sm:text-xs shadow-sm transition flex items-center justify-center gap-1">
-                  <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
-                  <span>ChatGPT</span>
-                </button>
                 <!-- 3. Gemini -->
-                <button onclick="launchAI('https://gemini.google.com')" class="py-2.5 px-1.5 bg-[#1A73E8] hover:bg-[#1557B0] text-white rounded-xl font-bold text-[11px] sm:text-xs shadow-sm transition flex items-center justify-center gap-1">
-                  <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+                <button onclick="smartLaunchAI('gemini')" class="py-2.5 px-2 bg-[#1A73E8] hover:bg-[#1557B0] text-white rounded-xl font-bold text-xs shadow-sm transition flex items-center justify-center gap-1.5">
+                  <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                   <span>Gemini</span>
                 </button>
                 <!-- 4. Claude -->
-                <button onclick="launchAI('https://claude.ai')" class="py-2.5 px-1.5 bg-[#D97706] hover:bg-[#B45309] text-white rounded-xl font-bold text-[11px] sm:text-xs shadow-sm transition flex items-center justify-center gap-1">
-                  <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+                <button onclick="smartLaunchAI('claude')" class="py-2.5 px-2 bg-[#D97706] hover:bg-[#B45309] text-white rounded-xl font-bold text-xs shadow-sm transition flex items-center justify-center gap-1.5">
+                  <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                   <span>Claude</span>
                 </button>
               </div>
 
-              <p class="text-[10px] text-slate-400 text-center">
-                ※ 버튼 터치 시 <strong>프롬프트가 자동 복사되며 새 창으로 AI가 열립니다</strong>. 대화창에 바로 <strong>붙여넣기</strong>하세요.
-              </p>
+              <!-- 친절한 모바일 안내 문구 -->
+              <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200 text-[11px] text-slate-600 leading-relaxed">
+                💡 <strong>가장 편한 사용 팁:</strong> <strong>[프롬프트 복사하기]</strong>를 누른 후, 홈 화면으로 나가서 평소 쓰시던 <strong>ChatGPT 앱이나 뤼튼 앱을 켜서 바로 붙여넣기</strong>하시면 두 앱을 자유롭게 오가며 가장 편하게 대화하실 수 있습니다!
+              </div>
             </div>
           </div>
 
-          <!-- 교안 p.39 "이어서 물어보기" 추천 질문 가이드 (피드백 2번 반영: 추천 개수 동적 연동!) -->
+          <!-- 교안 p.39 "이어서 물어보기" 추천 질문 가이드 -->
           <div class="bg-amber-50/70 border border-amber-200/80 rounded-2xl p-3">
             <h4 class="font-bold text-amber-900 text-xs mb-1.5 flex items-center gap-1.5">
               <i class="fa-solid fa-comments text-amber-600"></i> 교안 추천 : AI에게 이어서 물어보기 (클릭하면 복사)
@@ -942,9 +945,9 @@
     ];
 
     // -------------------------------------------------------------
-    // 3. 상태 관리 (localStorage 자동 저장/복원으로 데이터 유실 방지!)
+    // 3. 상태 관리 (localStorage 자동 저장 & 단계 복원 탑재!)
     // -------------------------------------------------------------
-    const STORAGE_KEY = 'career_holland_app_data_v1';
+    const STORAGE_KEY = 'career_holland_app_data_v2';
 
     const defaultState = {
       currentStep: 0,
@@ -973,7 +976,6 @@
     let state = JSON.parse(JSON.stringify(defaultState));
     state.selectedJobIds = new Set(state.selectedJobIds);
 
-    // 로컬 스토리지 저장
     function saveState() {
       try {
         const toSave = {
@@ -986,12 +988,12 @@
       }
     }
 
-    // 로컬 스토리지 불러오기
     function loadState() {
       try {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
           const parsed = JSON.parse(saved);
+          state.currentStep = parsed.currentStep !== undefined ? parsed.currentStep : 0;
           state.checks = parsed.checks || defaultState.checks;
           state.selectedJobIds = new Set(parsed.selectedJobIds || []);
           state.inputs = parsed.inputs || defaultState.inputs;
@@ -1579,7 +1581,6 @@
       const { codeStr } = getTopTypes();
       document.getElementById('input-holland').value = codeStr;
       
-      // 저장된 인풋 복원
       if (state.inputs) {
         if (state.inputs.major !== undefined) document.getElementById('input-major').value = state.inputs.major;
         if (state.inputs.mbti) document.getElementById('input-mbti').value = state.inputs.mbti;
@@ -1636,11 +1637,9 @@
       const jobCount = parseInt(document.getElementById('input-job-count').value) || 30;
       const priorityCount = parseInt(document.getElementById('input-priority-count').value) || 5;
 
-      // 상태 저장
       state.inputs = { major, mbti, jobValue, years, jobCount, priorityCount };
       saveState();
 
-      // 꼬리질문 버튼 라벨도 동기화 (피드백 2번 반영)
       const labelTable = document.getElementById('label-query-table');
       if (labelTable) labelTable.innerText = `${jobCount}개 직업 표로 정리`;
 
@@ -1672,13 +1671,13 @@
     }
 
     // -------------------------------------------------------------
-    // 9. 프롬프트 복사 및 AI 새 창 다이렉트 오픈 (피드백 1번 해결)
+    // 9. 프롬프트 복사 및 스마트폰 앱/새창 실행 (피드백 전면 해결)
     // -------------------------------------------------------------
     function copyPromptToClipboard() {
       const promptText = document.getElementById('generated-prompt-text').value;
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(promptText).then(() => {
-          showToast('프롬프트가 클립보드에 복사되었습니다!');
+          showToast('프롬프트 복사 완료! AI 앱/웹에 붙여넣으세요.');
         }).catch(() => {
           fallbackCopyText(promptText);
         });
@@ -1691,29 +1690,40 @@
       const textarea = document.getElementById('generated-prompt-text');
       textarea.select();
       document.execCommand('copy');
-      showToast('프롬프트가 복사되었습니다!');
+      showToast('프롬프트 복사 완료! AI 앱/웹에 붙여넣으세요.');
     }
 
-    // 아이폰 Safari에서 현재 탭을 덮어쓰지 않고 확실하게 새 탭으로 띄우기
-    function launchAI(url) {
-      // 1. 프롬프트 복사
+    // 스마트폰 앱 직접 실행 / 새 탭 오픈
+    function smartLaunchAI(service) {
+      // 1. 프롬프트 무조건 자동 복사
       copyPromptToClipboard();
 
-      // 2. 새 탭 열기 (window.open에 noopener 옵션 부여로 아이폰 사파리 팝업 차단 및 리다이렉트 방지)
-      const newWin = window.open(url, '_blank', 'noopener,noreferrer');
-      if (!newWin || newWin.closed || typeof newWin.closed === 'undefined') {
-        // 혹시 팝업이 차단된 경우 a 태그 가상 클릭으로 fallback
-        const link = document.createElement('a');
-        link.href = url;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+      // 2. 서비스별 실행
+      if (service === 'chatgpt') {
+        // 아이폰/스마트폰 전용: ChatGPT 앱 스킴(chatgpt://) 호출 시도
+        // 앱이 있으면 바로 앱이 팟 켜지고, 없으면 0.5초 뒤 공식 웹으로 이동
+        const appUrl = 'chatgpt://';
+        const webUrl = 'https://chatgpt.com';
+
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        if (isMobile) {
+          window.location.href = appUrl;
+          setTimeout(() => {
+            window.open(webUrl, '_blank', 'noopener,noreferrer');
+          }, 600);
+        } else {
+          window.open(webUrl, '_blank', 'noopener,noreferrer');
+        }
+      } else if (service === 'wrtn') {
+        window.open('https://wrtn.ai', '_blank', 'noopener,noreferrer');
+      } else if (service === 'gemini') {
+        window.open('https://gemini.google.com', '_blank', 'noopener,noreferrer');
+      } else if (service === 'claude') {
+        window.open('https://claude.ai', '_blank', 'noopener,noreferrer');
       }
     }
 
-    // 꼬리질문 동적 복사 (피드백 2번 반영)
+    // 꼬리질문 동적 복사
     function copyDynamicQuery(type) {
       const jobCount = parseInt(document.getElementById('input-job-count').value) || 30;
       let text = '';
@@ -1753,10 +1763,11 @@
       }, 2300);
     }
 
-    // 초기 실행 시 로컬 스토리지 데이터 자동 로드
+    // 초기 실행 시 저장된 상태 불러오고, 마지막으로 보던 스텝으로 자동 이동!
     window.addEventListener('DOMContentLoaded', () => {
       loadState();
-      goToStep(0);
+      // 저장된 단계가 있으면 해당 단계로 복원, 없으면 인트로(0)로 시작
+      goToStep(state.currentStep || 0);
     });
   </script>
 </body>
