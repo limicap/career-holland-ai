@@ -399,14 +399,6 @@
                 2. 전공 (학위 또는 관심 분야)
               </label>
               <input type="text" id="input-major" value="" oninput="buildPrompt()" placeholder="예: 경영학, 컴퓨터공학, 체육학, 사회복지학, 비전공" class="w-full px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 font-semibold">
-              <div class="flex flex-wrap gap-1 mt-1.5">
-                <button type="button" onclick="setMajor('체육/스포츠')" class="text-[10px] px-2 py-0.5 bg-slate-100 hover:bg-slate-200 rounded text-slate-600">체육</button>
-                <button type="button" onclick="setMajor('컴퓨터/SW')" class="text-[10px] px-2 py-0.5 bg-slate-100 hover:bg-slate-200 rounded text-slate-600">컴퓨터/IT</button>
-                <button type="button" onclick="setMajor('경영/경제')" class="text-[10px] px-2 py-0.5 bg-slate-100 hover:bg-slate-200 rounded text-slate-600">경영</button>
-                <button type="button" onclick="setMajor('사회복지/보건')" class="text-[10px] px-2 py-0.5 bg-slate-100 hover:bg-slate-200 rounded text-slate-600">복지/보건</button>
-                <button type="button" onclick="setMajor('디자인/예술')" class="text-[10px] px-2 py-0.5 bg-slate-100 hover:bg-slate-200 rounded text-slate-600">디자인</button>
-                <button type="button" onclick="setMajor('비전공/전공무관')" class="text-[10px] px-2 py-0.5 bg-slate-100 hover:bg-slate-200 rounded text-slate-600">비전공</button>
-              </div>
             </div>
 
             <!-- 3. 성격 (MBTI) -->
@@ -439,13 +431,9 @@
               <label class="block text-[11px] font-bold text-slate-700 mb-1">
                 4. 직업 가치관 (가장 중시하는 요소)
               </label>
-              <input type="text" id="input-value" value="높은 연봉" oninput="buildPrompt()" placeholder="예: 높은 연봉, 워라밸, 직업 안정성, 전문성 인정" class="w-full px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 font-semibold">
-              <div class="flex flex-wrap gap-1 mt-1.5">
-                <button type="button" onclick="setValue('높은 연봉')" class="text-[10px] px-2 py-0.5 bg-slate-100 hover:bg-slate-200 rounded text-slate-600">높은 연봉</button>
-                <button type="button" onclick="setValue('워라밸(일과 삶의 균형)')" class="text-[10px] px-2 py-0.5 bg-slate-100 hover:bg-slate-200 rounded text-slate-600">워라밸</button>
-                <button type="button" onclick="setValue('고용 안정성')" class="text-[10px] px-2 py-0.5 bg-slate-100 hover:bg-slate-200 rounded text-slate-600">안정성</button>
-                <button type="button" onclick="setValue('전문성 및 커리어 성장')" class="text-[10px] px-2 py-0.5 bg-slate-100 hover:bg-slate-200 rounded text-slate-600">전문성</button>
-              </div>
+              <div id="job-value-chips" class="flex flex-wrap gap-1.5"></div>
+              <div id="job-value-desc" class="mt-2 text-[11px] text-slate-600 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 leading-relaxed"></div>
+              <input type="hidden" id="input-value" value="성취">
             </div>
 
             <!-- 5. 유망 기간 / 추천 직업 수 / 우선 검토 개수 -->
@@ -1351,12 +1339,12 @@
 
       const types = ['R', 'I', 'A', 'S', 'E', 'C'];
       const angles = [
-        -Math.PI / 2,
-        -Math.PI / 6,
-        Math.PI / 6,
-        Math.PI / 2,
-        (5 * Math.PI) / 6,
-        (-5 * Math.PI) / 6
+        (-2 * Math.PI) / 3,
+        -Math.PI / 3,
+        0,
+        Math.PI / 3,
+        (2 * Math.PI) / 3,
+        Math.PI
       ];
 
       [0.33, 0.66, 1.0].forEach(level => {
@@ -1582,6 +1570,7 @@
       }
 
       renderPromptSelectedJobsBox();
+      renderJobValueChips();
       buildPrompt();
     }
 
@@ -1613,6 +1602,35 @@
       buildPrompt();
     }
 
+    const jobValueFactors = [
+      { name: '사회공헌', desc: '일을 통해 다른 사람이나 사회에 도움이 되는 것을 중시한다.' },
+      { name: '성취', desc: '자신이 세운 목표를 실현하기 위해 계획한 일에 관심을 가지고, 자신의 능력을 발휘하여, 자신이 세운 목표를 이루고 달성해 나가는 것을 중시한다.' },
+      { name: '경제적 보상', desc: '일에 대한 보상으로 경제적인 보상을 중시한다.' },
+      { name: '일과 삶의 균형', desc: '일 뿐만 아니라 자신의 삶에서도 만족할 수 있도록 적절한 균형을 가질 수 있는 것을 중시한다.' },
+      { name: '자기개발', desc: '직업을 통해 지식, 기술, 능력 등을 발전시켜 성장해 나가는 것을 중시한다.' },
+      { name: '자율성', desc: '자율적으로 업무를 수행해 나가는 것을 중시한다.' },
+      { name: '사회적 인정', desc: '다른 사람들과 사회로부터 일의 가치를 인정받는 것을 중시한다.' },
+      { name: '직업안정', desc: '직업에서 오랫동안 안정적으로 일할 수 있는지를 중시한다.' },
+      { name: '변화지향', desc: '업무가 고정되어 있지 않고 변화 가능한 것을 중시한다.' }
+    ];
+
+    function renderJobValueChips() {
+      const wrap = document.getElementById('job-value-chips');
+      if (!wrap) return;
+      const current = document.getElementById('input-value').value.trim();
+      wrap.innerHTML = jobValueFactors.map(f => `
+        <button type="button" onclick="selectJobValue('${f.name}')" class="text-[11px] px-2.5 py-1 rounded-full border font-semibold transition ${f.name === current ? 'bg-orange-500 border-orange-500 text-white' : 'bg-slate-50 border-slate-200 text-slate-600 hover:border-slate-300'}">${f.name}</button>
+      `).join('');
+      const match = jobValueFactors.find(f => f.name === current);
+      document.getElementById('job-value-desc').innerText = match ? match.desc : '';
+    }
+
+    function selectJobValue(name) {
+      document.getElementById('input-value').value = name;
+      renderJobValueChips();
+      buildPrompt();
+    }
+
     function setValue(valText) {
       document.getElementById('input-value').value = valText;
       buildPrompt();
@@ -1622,7 +1640,7 @@
       const holland = document.getElementById('input-holland').value.trim() || 'RS';
       const major = document.getElementById('input-major').value.trim() || '비전공/전공무관';
       const mbti = document.getElementById('input-mbti').value.trim() || 'ESTJ';
-      const jobValue = document.getElementById('input-value').value.trim() || '높은 연봉';
+      const jobValue = document.getElementById('input-value').value.trim() || '성취';
       
       const years = parseInt(document.getElementById('input-years').value) || 10;
       const jobCount = parseInt(document.getElementById('input-job-count').value) || 30;
