@@ -945,7 +945,7 @@
       inputs: {
         major: '',
         mbti: 'ESTJ',
-        jobValue: '높은 연봉',
+        jobValue: '성취',
         years: 10,
         jobCount: 30,
         priorityCount: 5
@@ -1641,6 +1641,10 @@
       const major = document.getElementById('input-major').value.trim() || '비전공/전공무관';
       const mbti = document.getElementById('input-mbti').value.trim() || 'ESTJ';
       const jobValue = document.getElementById('input-value').value.trim() || '성취';
+      const jobValueMatch = jobValueFactors.find(f => f.name === jobValue);
+      const jobValueSentence = jobValueMatch
+        ? jobValueMatch.desc.replace(/중시한다\.$/, '중시하는 직업을 희망합니다.')
+        : `${jobValue}을(를) 받을 수 있는 직업을 희망합니다.`;
       
       const years = parseInt(document.getElementById('input-years').value) || 10;
       const jobCount = parseInt(document.getElementById('input-job-count').value) || 30;
@@ -1663,7 +1667,7 @@
       const promptTemplate = 
 `당신은 30년 경력의 국내 최고 직업상담·진로설계 전문가입니다.
 
-나의 직업흥미검사 결과는 ${holland}이고, 전공은 ${major}, 성격유형(MBTI)은 ${mbti}이며, ${jobValue}을(를) 받을 수 있는 직업을 희망합니다.${interestJobsStr}
+나의 직업흥미검사 결과는 ${holland}이고, 전공은 ${major}, 성격유형(MBTI)은 ${mbti}이며, ${jobValueSentence}${interestJobsStr}
 
 이 정보를 바탕으로 향후 ${years}년(${currentYear}~${endYear}년) 동안 유망하면서 나에게 적합한 직업 ${jobCount}개를 추천해 주세요.
 
